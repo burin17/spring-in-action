@@ -1,4 +1,4 @@
-package com.gmail.burinigor7.tacocloudrestclient;
+package com.gmail.burinigor7.tacos.restclient;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
