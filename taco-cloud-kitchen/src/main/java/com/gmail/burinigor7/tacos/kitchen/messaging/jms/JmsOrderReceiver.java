@@ -1,27 +1,27 @@
-package com.gmail.burinigor7.tacos.kitchen;
+package com.gmail.burinigor7.tacos.kitchen.messaging.jms;
 
-import com.gmail.burinigor7.tacos.domain.Order;
+import com.gmail.burinigor7.tacos.kitchen.OrderReceiver;
+import com.gmail.burinigor7.tacos.kitchen.domain.Order;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.support.converter.MessageConverter;
+import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
-import javax.jms.Message;
 
+@Component
+@Slf4j
 public class JmsOrderReceiver implements OrderReceiver {
     private JmsTemplate jmsTemplate;
-    private MessageConverter converter;
 
     @Autowired
-    public JmsOrderReceiver(JmsTemplate jmsTemplate,
-                            MessageConverter converter) {
+    public JmsOrderReceiver(JmsTemplate jmsTemplate) {
         this.jmsTemplate = jmsTemplate;
-        this.converter = converter;
     }
 
     @Override
     public Order receiveOrder() throws JMSException {
-        Message message = jmsTemplate.receive("tacocloud.order.queue");
-        return (Order) converter.fromMessage(message);
+        return (Order) jmsTemplate.receiveAndConvert(
+                "tacocloud.order.queue");
     }
 }

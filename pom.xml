@@ -37,6 +37,8 @@
         <module>taco-cloud-security</module>
         <module>taco-cloud-app</module>
         <module>taco-cloud-restclient</module>
+        <module>taco-cloud-messaging-jms</module>
+        <module>taco-cloud-kitchen</module>
     </modules>
 
 </project>

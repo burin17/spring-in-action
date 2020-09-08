@@ -2,6 +2,7 @@ package com.gmail.burinigor7.tacos.api;
 
 import com.gmail.burinigor7.tacos.data.OrderRepository;
 import com.gmail.burinigor7.tacos.domain.Order;
+import com.gmail.burinigor7.tacos.messaging.OrderMessagingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -13,10 +14,13 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 public class OrderController {
     private OrderRepository orderRepository;
+    private OrderMessagingService messagingService;
 
     @Autowired
-    public OrderController(OrderRepository orderRepository) {
+    public OrderController(OrderRepository orderRepository,
+                           OrderMessagingService messagingService) {
         this.orderRepository = orderRepository;
+        this.messagingService = messagingService;
     }
 
     @GetMapping
@@ -27,6 +31,7 @@ public class OrderController {
     @PostMapping(consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Order postOrder(@RequestBody Order order) {
+        messagingService.sendOrder(order);
         return orderRepository.save(order);
     }
 

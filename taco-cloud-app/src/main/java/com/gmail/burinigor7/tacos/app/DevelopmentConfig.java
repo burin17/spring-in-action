@@ -1,6 +1,8 @@
 package com.gmail.burinigor7.tacos.app;
 
+import com.gmail.burinigor7.tacos.data.OrderRepository;
 import com.gmail.burinigor7.tacos.domain.Ingredient;
+import com.gmail.burinigor7.tacos.domain.Order;
 import com.gmail.burinigor7.tacos.domain.Taco;
 import com.gmail.burinigor7.tacos.domain.User;
 import org.springframework.boot.CommandLineRunner;
@@ -14,6 +16,7 @@ import com.gmail.burinigor7.tacos.data.TacoRepository;
 import com.gmail.burinigor7.tacos.data.UserRepository;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Profile("!prod")
 @Configuration
@@ -22,7 +25,8 @@ public class DevelopmentConfig {
 
   @Bean
   public CommandLineRunner dataLoader(IngredientRepository ingredientRepository,
-        UserRepository userRepository, PasswordEncoder encoder, TacoRepository tacoRepository) { // user repo for ease of testing with a built-in user
+                                      UserRepository userRepository, PasswordEncoder encoder,
+                                      TacoRepository tacoRepository, OrderRepository orderRepository) { // user repo for ease of testing with a built-in user
     return new CommandLineRunner() {
       @Override
       public void run(String... args) throws Exception {

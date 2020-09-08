@@ -1,0 +1,13 @@
+package com.gmail.burinigor7.tacos.messaging;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class TacoCloudMessagingJmsApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
